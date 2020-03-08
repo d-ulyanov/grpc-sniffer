@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"google.golang.org/grpc"
-	pb "bitbucket.org/russia/test/grpcsniffer/hello"
+	pb "github.com/d-ulyanov/grpc-sniffer/hello"
 )
 
 const (
@@ -32,7 +32,7 @@ func main() {
 
 	t := time.NewTicker(time.Second * 3)
 
-	for tick := range t.C {
+	for range t.C {
 		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 		defer cancel()
 
@@ -40,7 +40,7 @@ func main() {
 		if err != nil {
 			log.Fatalf("could not greet: %v", err)
 		}
-		log.Printf("Greeting: %s at %d", r.GetMessage(), tick.Second())
+		log.Printf("GRPC Client (sent): %s", r.GetMessage())
 	}
 
 	select {}
